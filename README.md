@@ -47,3 +47,18 @@ VisComm = df.loc[(df['Hometown']=='Visayas')&(df['Track']=='Communication'), ['N
 VisComm
 ```
 - `VisComm = df.loc[(df['Hometown']=='Visayas')&(df['Track']=='Communication'), ['Name', 'Gender', 'Math', 'Electronics','Average']].reset_index()` - This code selects the rows whose `Hometown` and `Track` information are **ONLY** `Visayas` and `Communication` respectively. Afterwards, it retains the columns with the names `Name`, `Gender`, `Math`, `Electronics`, and `Average`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
+```ruby
+len(VisComm)
+```
+-`len(VisComm)` - This code counts the number of rows in the dataframe `VisComm`.
+
+## B. VISAYAS FEMALE DATAFRAME
+
+Create a second DataFrame named `VisFemale` containing students whose `Hometown` is `Visayas` and whose `Gender` is `Female`. Retain only:
+```Name, Track, GEAS, Electronics, Average```<br><br>
+Display `VisFemale`. Then display only the rows of `VisFemale` whose `Average` is at least 60. Do not overwrite `VisFemale` when performing this second filter.
+
+```ruby
+VisFemale = df.loc[(df['Hometown']=='Visayas')&(df['Gender']=='Female'), ['Name', 'Track', 'GEAS', 'Electronics','Average']].reset_index()
+VisFemale
+```
