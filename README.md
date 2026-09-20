@@ -71,3 +71,10 @@ VisFemaleOverSixty
 ```
 - `VisFemaleOverSixty = VisFemale.loc[(VisFemale['Average']>60)].reset_index()` - This code locates the rows from the dataframe `VisFemale` whose average value is strictly greater than 60 and stores them in the dataframe `VisFemaleOverSixty`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
 - `VisFemaleOverSixty` - This code displays the dataframe `VisFemaleOverSixty`.
+
+## C. CATEGORY-AVERAGE VISUALIZATION
+Examine how the recorded `Average` differs across the three categorical features `Track`, `Gender`, and `Hometown`.<br>
+**a.**  For each feature, compute the mean of `Average` for every category using Pandas.<br>
+**b.** Display the three summary tables.<br>
+**c.** Create one figure containing three bar charts: mean `Average` by `Track`, by `Gender`, and by `Hometown`.<br>
+**d.** Below the figure, write three concise statements identifying the category with the highest sample mean for each feature.<br>
