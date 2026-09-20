@@ -62,3 +62,12 @@ Display `VisFemale`. Then display only the rows of `VisFemale` whose `Average` i
 VisFemale = df.loc[(df['Hometown']=='Visayas')&(df['Gender']=='Female'), ['Name', 'Track', 'GEAS', 'Electronics','Average']].reset_index()
 VisFemale
 ```
+- `VisFemale = df.loc[(df['Hometown']=='Visayas')&(df['Gender']=='Female'), ['Name', 'Track', 'GEAS', 'Electronics','Average']].reset_index()` - This code selects the rows whose `Hometown` and `Gender` information are **ONLY** `Visayas` and `Female` respectively. Afterwards, it retains the columns with the names `Name`, `Track`, `GEAS`, `Electronics`, and `Average`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
+- `VisFemale` - This code displays the dataframe `VisFemale`.
+
+```ruby
+VisFemaleOverSixty = VisFemale.loc[(VisFemale['Average']>60)].reset_index()
+VisFemaleOverSixty
+```
+- `VisFemaleOverSixty = VisFemale.loc[(VisFemale['Average']>60)].reset_index()` - This code locates the rows from the dataframe `VisFemale` whose average value is strictly greater than 60 and stores them in the dataframe `VisFemaleOverSixty`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
+- `VisFemaleOverSixty` - This code displays the dataframe `VisFemaleOverSixty`.
