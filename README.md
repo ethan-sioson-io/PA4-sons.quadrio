@@ -58,6 +58,7 @@ Create a second DataFrame named `VisFemale` containing students whose `Hometown`
 ```Name, Track, GEAS, Electronics, Average```<br><br>
 Display `VisFemale`. Then display only the rows of `VisFemale` whose `Average` is at least 60. Do not overwrite `VisFemale` when performing this second filter.
 
+### Code for the Problem:
 ```ruby
 VisFemale = df.loc[(df['Hometown']=='Visayas')&(df['Gender']=='Female'), ['Name', 'Track', 'GEAS', 'Electronics','Average']].reset_index()
 VisFemale
@@ -78,3 +79,104 @@ Examine how the recorded `Average` differs across the three categorical features
 **b.** Display the three summary tables.<br>
 **c.** Create one figure containing three bar charts: mean `Average` by `Track`, by `Gender`, and by `Hometown`.<br>
 **d.** Below the figure, write three concise statements identifying the category with the highest sample mean for each feature.<br>
+
+### Code for the Problem:
+```ruby
+TrackAverage = df.groupby('Track')['Average'].mean().reset_index()
+TrackAverage
+```
+- `TrackAverage = df.groupby('Track')['Average'].mean().reset_index()` - This code takes the dataframe and groups it under the categories under the `Track` column. It then only reads the `Average` column and calculates the average for each group (`Communication`, `Instrumentation`, `Microelectronics`) and stores all of this in `TrackAverage`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
+- `TrackAverage` - This displays the dataframe `TrackAverage`.
+
+```ruby
+GenderAverage = df.groupby('Gender')['Average'].mean().reset_index()
+GenderAverage
+```
+- `GenderAverage = df.groupby('Gender')['Average'].mean().reset_index()` - This code takes the dataframe and groups it under the categories under the `Gender` column. It then only reads the `Average` column and calculates the average for each group (`Female`, `Male`) and stores all of this in `GenderAverage`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
+- `GenderAverage` - This displays the dataframe `GenderAverage`.
+
+```ruby
+HometownAverage = df.groupby('Hometown')['Average'].mean().reset_index()
+HometownAverage
+```
+- `HometownAverage = df.groupby('Hometown')['Average'].mean().reset_index()` - This code takes the dataframe and groups it under the categories under the `Hometown` column. It then only reads the `Average` column and calculates the average for each group (`Luzon`, `Mindanao`, `Visayas`) and stores all of this in `HometownAverage`. Finally, `.reset_index()` starts counting rows from 0 instead of the original row numbers.
+
+```ruby
+fig, axes = plt.subplots(1,3,figsize=(16,5))
+
+axes[0].bar(TrackAverage['Track'], TrackAverage['Average'])
+axes[0].set_title('Mean Average by Track')
+axes[0].set_xlabel('Track Names')
+axes[0].set_ylabel('Mean Scores')
+
+axes[1].bar(GenderAverage['Gender'], GenderAverage['Average'])
+axes[1].set_title('Mean Average by Gender')
+axes[1].set_xlabel('Genders')
+
+axes[2].bar(HometownAverage['Hometown'], HometownAverage['Average'])
+axes[2].set_title('Mean Average by Hometown')
+axes[2].set_xlabel('Hometown Names')
+
+plt.tight_layout(rect=[0, 0.25, 1, 1])
+
+findings = (
+    "1. For the Track feature, the [Insert Track] category achieved the highest sample mean Average.\n"
+    "2. For the Gender feature, the [Insert Gender] category recorded the highest sample mean Average.\n"
+    "3. For the Hometown feature, students from [Insert Hometown] had the highest sample mean Average."
+)
+
+fig.text(0.5, 0.05, findings, ha='center', fontsize=12)
+
+plt.show()
+```
+The explanation for this code will be separated into: **Chart Preparation** and **Findings Code**.
+### Chart Preparation Code:
+```ruby
+fig, axes = plt.subplots(1,3,figsize=(16,5))
+
+axes[0].bar(TrackAverage['Track'], TrackAverage['Average'])
+axes[0].set_title('Mean Average by Track')
+axes[0].set_xlabel('Track Names')
+axes[0].set_ylabel('Mean Scores')
+
+axes[1].bar(GenderAverage['Gender'], GenderAverage['Average'])
+axes[1].set_title('Mean Average by Gender')
+axes[1].set_xlabel('Genders')
+
+axes[2].bar(HometownAverage['Hometown'], HometownAverage['Average'])
+axes[2].set_title('Mean Average by Hometown')
+axes[2].set_xlabel('Hometown Names')
+
+plt.tight_layout(rect=[0, 0.25, 1, 1])
+```
+
+- `fig, axes = plt.subplots(1,3,figsize=(16,5))` - This code initializes fig and axes, the white background and the arrays respectively. `1,3` tells the code to create 1 row containing 3 columns, which translates to three charts. `figsize=(16,5)` dictates the size of the figure itself, with it being 16 inches wide and 5 inches tall.
+
+- `axes[0].bar(TrackAverage['Track'], TrackAverage['Average'])` - `axes[0].bar` tells the code to start at the first chart to the left. Changing the value to 1 or 2 changes which chart to focus one to either the second or third chart respectively. It also creates a bar chart. `TrackAverage['Track']` provides the labels for the X-axis while `TrackAverage['Average']` provides the values for the Y-axis from the `TrackAverage` dataframe.<br>
+
+- **Several alterations to this line of code includes:**
+   - Changing which axes to focus on (`axes[1]` or `axes[2]`).
+   - Changing the X-axis labels according to `GenderAverage['Gender']` or `HometownAverage['Hometown']`.
+   - Changing Y-axis labels according to `GenderAverage['Average']` or `HometownAverage['Average']`
+
+
+- `axes[0].set_title('Mean Average by Track')` - This code adds text to the main title and sets it to "Mean Average by Track". The other charts have the titles "Mean Average by Gender" and "Mean Average by Hometown".
+- `axes[0].set_xlabel('Track Names')` - This code adds text to the xlabel and sets it to "Track Names". The other charts have the titles "Genders" and "Hometown Names".
+- `axes[0].set_ylabel('Mean Scores')` - This code adds text to the ylabel and sets it to "Mean Scores".
+- `plt.tight_layout(rect=[0, 0.25, 1, 1])` - This code adjusts the spacing between the charts. `rect=[0, 0.25, 1, 1]` follows the format `rect=[left, bottom, right, top]`. For this figure, 0 means the charts start at the left edge, 0.25 means the charts start 25% higher than the canvas, 1 means it extends the charts to the right and top edges.
+
+### Findings Code:
+```ruby
+findings = (
+    "1. For the Track feature, the [Insert Track] category achieved the highest sample mean Average.\n"
+    "2. For the Gender feature, the [Insert Gender] category recorded the highest sample mean Average.\n"
+    "3. For the Hometown feature, students from [Insert Hometown] had the highest sample mean Average."
+)
+
+fig.text(0.5, 0.05, findings, ha='center', fontsize=12)
+
+plt.show()
+```
+- `findings = ("1. For the ...")` - This code creates a string of the three sentences and stores them in `findings`. 
+- `fig.text(0.5, 0.05, findings, ha='center', fontsize=12)` - This code places the string of text based on the conditions set inside the parenthesis. 0.5 and 0.05 are the X and Y coordinates according to the canvas. It sets the text 50% across while setting the Y 5% from the bottom edge of the canvas. `ha=center` sets the horizontal alignment of the text to center. While `fontsize=12` sets the size of the font to 12.
+- `plt.show()` - This code displays the figure according to the code set above.
